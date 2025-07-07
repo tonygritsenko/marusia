@@ -1,4 +1,3 @@
-<!-- Random.vue -->
 <script setup lang="ts">
 import type { IMovie } from "~/types";
 
@@ -10,7 +9,6 @@ const { loading, error, execute } = useAsyncFetch(
     return result;
   },
   (result) => {
-    // Additional validation before setting card data
     if (result && typeof result === "object" && !("name" in result)) {
       card.value = Array.isArray(result) ? result : [result];
     } else {
