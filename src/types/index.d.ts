@@ -26,3 +26,7 @@ export interface IMovie {
   production: string | null;
   awardsSummary: string | null;
 }
+
+interface IMovieWithIndex extends IMovie {
+  index: number;
+}

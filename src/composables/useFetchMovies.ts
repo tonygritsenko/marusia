@@ -1,13 +1,13 @@
-export const useFetchTop10 = async () => {
+export const useFetchMovies = async (endpoint: string) => {
   const config = useRuntimeConfig();
-
   return await $fetch(
-    `${config.public.apiBaseURL}/movie/top10`, {
+    `${config.public.apiBaseURL}${endpoint}`,
+    {
       onResponse({ response }) {
         if (response.ok) {
           return response._data;
         }
       },
-    },
+    }
   );
 };

@@ -1,33 +1,46 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import type { IMovie } from '@/types/IMovie';
-
-interface IMovieWithIndex extends IMovie {
-  index: number;
-}
+import type { IMovie, IMovieWithIndex } from "~/types";
 
 const cards = ref<IMovieWithIndex[]>([]);
 
-onMounted(async () => {
-  const data = await useFetchTop10();
-  if (Array.isArray(data)) {
-    cards.value = data.map((card, idx) => ({ ...card, index: idx + 1 }));
+const { loading, error, execute } = useAsyncFetch(
+  async () => await useFetchMovies("/movie/top10"),
+  (result) => {
+    if (Array.isArray(result)) {
+      cards.value = result.map((card, idx) => ({ ...card, index: idx + 1 }));
+    } else {
+      cards.value = [];
+    }
   }
-});
+);
+
+onMounted(execute);
 </script>
 
 <template>
   <section class="top">
     <div class="container">
       <h3 class="top__title">Топ 10&nbsp;фильмов</h3>
-      <div v-for="card in cards" :key="card.id" class="top__card">
-        <span class="top__card-number">{{ card.index }}</span>
-        <img :src="card.posterUrl" :alt="card.title" class="top__card-image">
+      <div v-if="loading">Loading...</div>
+      <div v-else-if="error" class="error">{{ error }}</div>
+      <div v-else>
+        <div v-for="card in cards" :key="card.id" class="top__card">
+          <span class="top__card-number">{{ card.index }}</span>
+          <img
+            :src="card.posterUrl"
+            :alt="card.title"
+            class="top__card-image"
+          />
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-
+.error {
+  color: red;
+  font-weight: bold;
+  margin: 1rem 0;
+}
 </style>
