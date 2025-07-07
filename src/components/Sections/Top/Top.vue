@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IMovie, IMovieWithIndex } from "~/types";
+import type { IMovieWithIndex } from "~/types";
 
 const cards = ref<IMovieWithIndex[]>([]);
 

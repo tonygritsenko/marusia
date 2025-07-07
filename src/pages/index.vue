@@ -1,6 +1,6 @@
 <template>
   <main>
-    <SectionsRandom />
-    <SectionsTop />
+    <sectionsRandom />
+    <sectionsTop />
   </main>
 </template>

@@ -1,0 +1,80 @@
+html,
+body {
+  text-rendering: optimizeLegibility;
+  text-decoration-skip: objects;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+b {
+  font-weight: 700;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a,
+img,
+span {
+  display: block;
+}
+button {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+ul {
+  list-style: none;
+}
+@font-face {
+  font-weight: 400;
+  font-family: Play;
+  src: url('/assets/fonts/Play-Regular.woff2') format('woff2'), url('/assets/fonts/Play-Regular.woff') format('woff');
+}
+@font-face {
+  font-weight: 700;
+  font-family: Play;
+  src: url('/assets/fonts/Play-Bold.woff2') format('woff2'), url('/assets/fonts/Play-Bold.woff') format('woff');
+}
+html {
+  font-family: Play, open sans, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  background: linear-gradient(178.73deg, rgba(39, 135, 245, 0.18) -17.53%, rgba(163, 147, 245, 0.18) 131.74%), linear-gradient(180deg, #000000 0%, rgba(39, 36, 36, 0.7) 100%);
+}
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-right: 80px;
+  padding-left: 80px;
+}
