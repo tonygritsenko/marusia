@@ -39,6 +39,7 @@ b {
 a {
   color: inherit;
   text-decoration: none;
+  cursor: pointer;
 }
 a,
 img,
@@ -48,6 +49,7 @@ span {
 button {
   padding: 0;
   margin: 0;
+  color: inherit;
   background-color: transparent;
   border: none;
   cursor: pointer;

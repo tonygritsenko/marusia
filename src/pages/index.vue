@@ -1,3 +1,4 @@
+<!-- index.vue -->
 <template>
   <main>
     <sectionsRandom />

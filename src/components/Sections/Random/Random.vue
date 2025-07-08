@@ -1,19 +1,13 @@
+<!-- Random.vue -->
 <script setup lang="ts">
 import type { IMovie } from "~/types";
 
 const card = ref<IMovie[]>([]);
 
-const { loading, error, execute } = useAsyncFetch(
-  async () => {
-    const result = await useFetchMovies("/movie/random");
-    return result;
-  },
+const { execute } = useAsyncFetch(
+  () => useFetchMovies("/movie/random"),
   (result) => {
-    if (result && typeof result === "object" && !("name" in result)) {
-      card.value = Array.isArray(result) ? result : [result];
-    } else {
-      throw new Error("Invalid data received from API");
-    }
+    card.value = Array.isArray(result) ? result : [result];
   }
 );
 
@@ -23,33 +17,42 @@ onMounted(execute);
 <template>
   <section class="random">
     <div class="container">
-      <span v-if="loading">Loading...</span>
-      <div v-else-if="error" class="error">{{ error }}</div>
-      <template v-else-if="card.length > 0">
-        <div v-for="movie in card" :key="movie.id" class="random__wrapper">
-          <div class="random__left">
-            <div class="random__top">
-              <div class="random__rate">
-                <Icon name="Star" />
-                {{ movie.tmdbRating }}
-              </div>
-              <span class="random__year">{{ movie.releaseYear }}</span>
-              <span class="random__genre">
-                {{ formatGenres(movie.genres) }}
-              </span>
-              <span class="random__duration">
-                {{ formatRuntime(movie.runtime) }}
-              </span>
+      <div v-for="movie in card" :key="movie.id" class="random__wrapper">
+        <div class="random__left">
+          <div class="random__left-top">
+            <div class="random__rate">
+              <Icon name="Star" class="random__rate-icon" />
+              {{ movie.tmdbRating }}
             </div>
-            <h2 class="random__title">{{ typograf(movie.title) }}</h2>
-            <p class="random__text">{{ typograf(movie.plot) }}</p>
+            <span class="random__year">{{ movie.releaseYear }}</span>
+            <span class="random__genre">
+              {{ formatGenres(movie.genres) }}
+            </span>
+            <span class="random__duration">
+              {{ formatRuntime(movie.runtime) }}
+            </span>
           </div>
-          <NuxtImg :src="movie.posterUrl" />
+
+          <h2 class="random__title">{{ typograf(movie.title) }}</h2>
+          <p class="random__text">{{ typograf(movie.plot) }}</p>
+
+          <div class="random__left-bottom">
+            <button class="random__button random__button--blue">Трейлер</button>
+            <NuxtLink class="random__link">О&nbsp;фильме</NuxtLink>
+            <button class="random__button random__button--small">
+              <Icon name="Heart" />
+            </button>
+            <button class="random__button random__button--small">
+              <Icon name="Reload" />
+            </button>
+          </div>
         </div>
-      </template>
-      <div v-else class="error">No movies found</div>
+        <div class="random__right">
+          <NuxtImg :src="movie.posterUrl" class="random__image" />
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
-<style scoped></style>
+<style src="./Random.less" scoped lang="less" />

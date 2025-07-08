@@ -22,10 +22,10 @@ export const scrollLock = (status: boolean) => {
  * @param runtime - время в минутах.
  * @returns Отформатированная строка времени.
  */
+
 export function formatRuntime(runtime: number): string {
   if (!runtime || isNaN(runtime)) return '';
   const hours = Math.floor(runtime / 60);
   const minutes = runtime % 60;
-  return hours ? `${hours}h ${minutes}min` : `${minutes}min`;
+  return hours ? `${hours} h ${minutes} min` : `${minutes} min`;
 }
-
