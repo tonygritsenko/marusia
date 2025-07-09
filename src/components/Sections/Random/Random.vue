@@ -16,8 +16,8 @@ onMounted(execute);
 <template>
   <section class="random">
     <div class="container">
-      <LoadingError v-if="error" :loading="loading" :error="error" />
-      
+      <Error v-if="error" :error="error" />
+
       <template v-if="!loading && !error && card.length">
         <div v-for="movie in card" :key="movie.id" class="random__wrapper">
           <div class="random__left">
@@ -52,7 +52,11 @@ onMounted(execute);
             </div>
           </div>
           <div class="random__right">
-            <NuxtImg :src="movie.posterUrl" class="random__image" />
+            <NuxtImg
+              v-if="movie.posterUrl"
+              :src="movie.posterUrl"
+              class="random__image"
+            />
           </div>
         </div>
       </template>

@@ -1,4 +1,3 @@
-<!-- app.vue -->
 <script setup lang="ts">
 const nuxtApp = useNuxtApp();
 
@@ -12,7 +11,7 @@ nuxtApp.hook("page:finish", () => {
 </script>
 
 <template>
-  <LoadingError :loading="loading" :error="null" v-if="loading" />
+  <Loading :loading="loading" v-if="loading" />
   
   <NuxtLayout >
     <NuxtPage />
