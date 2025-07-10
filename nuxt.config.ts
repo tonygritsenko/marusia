@@ -10,5 +10,9 @@ export default defineNuxtConfig({
     }
   },
 
+  image: {
+    dirs: ['public'],
+  },
+
   modules: ['@nuxt/icon', '@nuxt/image']
 })

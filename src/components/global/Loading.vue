@@ -5,13 +5,15 @@ defineProps<{
 </script>
 
 <template>
-  <div class="container container--loading">
-    <span class="loading">Loading . . .</span>
+  <div class="loading">
+    <div class="loading__wrapper">
+      <span class="loading__text">Loading . . .</span>
+    </div>
   </div>
 </template>
 
 <style scoped lang="less">
-.container--loading {
+.loading {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -20,19 +22,30 @@ defineProps<{
   left: 0;
   width: 100%;
   height: 100%;
-}
 
-.loading {
-  font-size: 32px;
-  font-weight: bold;
-  color: transparent;
-  background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0.5) 100%);
-  background-size: 10% 100%;
-  background-position: 0% 0%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: loading-gradient 3s linear infinite;
+  &__wrapper {
+    position: relative;
+    width: 729px;
+    height: 469px;
+    background-image: url("../../public/images/tv.webp");
+    background-size: contain;
+  }
+
+  &__text {
+    position: absolute;
+    top: 173px;
+    left: 371px;
+    font-size: 32px;
+    font-weight: bold;
+    color: transparent;
+    background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0.5) 100%);
+    background-size: 10% 100%;
+    background-position: 0% 0%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: appearance 10s ease, loading-gradient 3s linear infinite;
+  }
 }
 
 @keyframes loading-gradient {
@@ -62,6 +75,24 @@ defineProps<{
   }
   0% {
     background-position: 0% 0%;
+  }
+}
+
+@keyframes appearance {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>

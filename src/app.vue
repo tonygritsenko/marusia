@@ -6,14 +6,16 @@ const loading = ref(true);
 nuxtApp.hook("page:finish", () => {
   setTimeout(() => {
     loading.value = false;
-  }, 500);
+  }, 100);
 });
 </script>
 
 <template>
-  <Loading :loading="loading" v-if="loading" />
-  
-  <NuxtLayout >
+  <Transition name="fade" mode="out-in">
+    <Loading :loading="loading" v-if="loading" />
+  </Transition>
+
+  <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
 </template>
