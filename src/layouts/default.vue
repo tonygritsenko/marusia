@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <!-- <AppHeader /> -->
+  <appHeader />
   <slot />
   <!-- <AppModal /> -->
   <!-- <AppFooter /> -->
