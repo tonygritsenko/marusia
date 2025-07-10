@@ -1,4 +1,3 @@
-// isErrorResponse.ts
 const ERROR_NAMES = [
   'PrismaClientValidationError',
   'Error',

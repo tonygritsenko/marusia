@@ -21,19 +21,15 @@ onMounted(execute);
       <template v-if="!loading && !error && card.length">
         <div v-for="movie in card" :key="movie.id" class="random__wrapper">
           <div class="random__left">
-            <div class="random__left-top">
-              <div class="random__rate">
-                <Icon name="Star" class="random__rate-icon" />
-                {{ movie.tmdbRating }}
-              </div>
-              <span class="random__year">{{ movie.releaseYear }}</span>
-              <span class="random__genre">
-                {{ formatGenres(movie.genres) }}
-              </span>
-              <span class="random__duration">
-                {{ formatRuntime(movie.runtime) }}
-              </span>
-            </div>
+            <MovieTop
+              :movie="movie"
+              leftTopClass="random__left-top"
+              rateClass="random__rate"
+              rateIconClass="random__rate-icon"
+              yearClass="random__year"
+              genreClass="random__genre"
+              durationClass="random__duration"
+            />
 
             <h2 class="random__title">{{ typograf(movie.title) }}</h2>
             <p class="random__text">{{ typograf(movie.plot) }}</p>
@@ -46,7 +42,10 @@ onMounted(execute);
               <button class="random__button random__button--small">
                 <Icon name="Heart" />
               </button>
-              <button class="random__button random__button--small">
+              <button
+                @click="execute"
+                class="random__button random__button--small"
+              >
                 <Icon name="Reload" />
               </button>
             </div>
@@ -64,4 +63,4 @@ onMounted(execute);
   </section>
 </template>
 
-<style src="./Random.less" scoped lang="less" />
+<style src="./Random.less" lang="less" />

@@ -1,5 +1,5 @@
 // useFetchMovies.ts
-export const useFetchMovies = async (endpoint: string) => {
+export const useFetchMovies = async <T = any>(endpoint: string): Promise<T> => {
   const config = useRuntimeConfig();
 
   try {
@@ -17,7 +17,7 @@ export const useFetchMovies = async (endpoint: string) => {
       throw new Error('Invalid response format');
     }
 
-    return response;
+    return response as T;
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }
