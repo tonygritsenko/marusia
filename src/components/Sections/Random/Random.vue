@@ -54,6 +54,7 @@ onMounted(execute);
             <NuxtImg
               v-if="movie.posterUrl"
               :src="movie.posterUrl"
+              :alt="movie.title"
               class="random__image"
             />
           </div>
