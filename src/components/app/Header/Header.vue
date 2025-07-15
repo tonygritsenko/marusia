@@ -2,17 +2,40 @@
 import type { IMovie } from "~/types";
 
 const searchQuery = ref("");
+const showResults = ref(false);
 
 const fetcher = (): Promise<IMovie[]> =>
-  useFetchMovies<IMovie[]>(
-    `/movie?title=${encodeURIComponent(searchQuery.value)}`
-  );
-const { data, loading, error, execute } = useAsyncFetch<IMovie[]>(fetcher);
+  useFetchMovies<IMovie[]>
+    (`/movie?title=${encodeURIComponent(searchQuery.value)}`);
+const { data, error, execute } = useAsyncFetch<IMovie[]>(fetcher);
 
-function onKeyup(e: KeyboardEvent) {
-  if (e.key === "Enter" || e.key === " " || e.code === "Space") execute();
-  if (searchQuery.value.trim() === "") data.value = null;
+async function onKeyup(e: KeyboardEvent) {
+  if (e.key === "Enter" || e.key === " ") {
+    await execute();
+    showResults.value = !!(data.value && data.value.length && searchQuery.value.trim());
+  } else if (searchQuery.value.trim() === "") {
+    data.value = null;
+    showResults.value = false;
+  }
 }
+
+function onFocus() {
+  showResults.value = !!(data.value && data.value.length && searchQuery.value.trim());
+}
+
+function handleClickOutside(event: MouseEvent) {
+  const search = document.querySelector(".header__search");
+  if (search && !search.contains(event.target as Node)) {
+    showResults.value = false;
+  }
+}
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+onBeforeUnmount(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
 </script>
 
 <template>
@@ -33,12 +56,13 @@ function onKeyup(e: KeyboardEvent) {
             class="header__input"
             v-model="searchQuery"
             @keyup="onKeyup"
+            @focus="onFocus"
           />
           <div class="header__search-results">
             <div v-if="error" class="header__search-error error">
               {{ error }}
             </div>
-            <ul v-if="data && data.length" class="header__list">
+            <ul v-if="data && data.length && showResults" class="header__list">
               <li v-for="movie in data" :key="movie.id" class="header__item">
                 <NuxtImg :src="movie.posterUrl" class="header__item-image" />
                 <div class="header__item-wrapper">
