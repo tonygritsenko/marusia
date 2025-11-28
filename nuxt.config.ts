@@ -1,7 +1,6 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-04',
   devtools: { enabled: true },
-  srcDir: 'src/',
   css: ['~/assets/styles/main.less'],
 
   runtimeConfig: {

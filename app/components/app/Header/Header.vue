@@ -5,14 +5,19 @@ const searchQuery = ref("");
 const showResults = ref(false);
 
 const fetcher = (): Promise<IMovie[]> =>
-  useFetchMovies<IMovie[]>
-    (`/movie?title=${encodeURIComponent(searchQuery.value)}`);
+  useFetchMovies<IMovie[]>(
+    `/movie?title=${encodeURIComponent(searchQuery.value)}`
+  );
 const { data, error, execute } = useAsyncFetch<IMovie[]>(fetcher);
 
 async function onKeyup(e: KeyboardEvent) {
   if (e.key === "Enter" || e.key === " ") {
     await execute();
-    showResults.value = !!(data.value && data.value.length && searchQuery.value.trim());
+    showResults.value = !!(
+      data.value &&
+      data.value.length &&
+      searchQuery.value.trim()
+    );
   } else if (searchQuery.value.trim() === "") {
     data.value = null;
     showResults.value = false;
@@ -20,7 +25,11 @@ async function onKeyup(e: KeyboardEvent) {
 }
 
 function onFocus() {
-  showResults.value = !!(data.value && data.value.length && searchQuery.value.trim());
+  showResults.value = !!(
+    data.value &&
+    data.value.length &&
+    searchQuery.value.trim()
+  );
 }
 
 function handleClickOutside(event: MouseEvent) {
@@ -43,7 +52,7 @@ onBeforeUnmount(() => {
     <div class="container">
       <div class="header__wrapper">
         <NuxtLink class="header__link">
-          <NuxtImg src="logo.png" />
+          <NuxtImg src="public/logo.png" />
         </NuxtLink>
         <nav class="header__nav">
           <NuxtLink to="/" class="header__nav-link">Home</NuxtLink>
