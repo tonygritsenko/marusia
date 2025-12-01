@@ -36,16 +36,18 @@ const bgStyle = computed(() => ({
 
   &__wrapper {
     position: relative;
-    width: 729px;
-    height: 469px;
+    width: 329px;
+    height: 212px;
     background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   &__text {
     position: absolute;
-    top: 173px;
-    left: 371px;
-    font-size: 32px;
+    top: 73px;
+    left: 128px;
+    font-size: 28px;
     font-weight: bold;
     color: transparent;
     background: linear-gradient(90deg, #fff 0%, rgba(255, 255, 255, 0.5) 100%);
