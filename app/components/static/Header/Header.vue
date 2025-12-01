@@ -52,7 +52,7 @@ onBeforeUnmount(() => {
     <div class="container">
       <div class="header__wrapper">
         <NuxtLink class="header__link">
-          <NuxtImg src="public/logo.png" />
+          <NuxtImg src="/images/logo.png" />
         </NuxtLink>
         <nav class="header__nav">
           <NuxtLink to="/" class="header__nav-link">Home</NuxtLink>

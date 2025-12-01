@@ -1,9 +1,6 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <appHeader />
+  <staticHeader />
   <slot />
-  <!-- <AppModal /> -->
-  <!-- <AppFooter /> -->
 </template>

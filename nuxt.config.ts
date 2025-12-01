@@ -1,17 +1,17 @@
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-04',
+  compatibilityDate: "2025-07-04",
   devtools: { enabled: true },
-  css: ['~/assets/styles/main.less'],
+  css: ["~/assets/styles/main.less"],
 
   runtimeConfig: {
     public: {
-      apiBaseURL: process.env.API_BASE_URL
-    }
+      apiBaseURL: process.env.API_BASE_URL,
+    },
   },
 
   image: {
-    dirs: ['public'],
+    dirs: ["public"],
   },
 
-  modules: ['@nuxt/icon', '@nuxt/image']
-})
+  modules: ["@nuxt/icon", "@nuxt/image"],
+});

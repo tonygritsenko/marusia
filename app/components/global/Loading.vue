@@ -1,79 +1,24 @@
 <script setup lang="ts">
+import tvImg from "~/assets/images/tv.webp";
+
 defineProps<{
   loading: boolean;
 }>();
 
-class PreloadImage {
-  constructor(settings: {
-    container: HTMLElement | null;
-    imageUrlList: string[];
-    loadClass: string;
-  }) {
-    this._container = settings.container;
-    this._imgUrlList = settings.imageUrlList;
-    this._loadClass = settings.loadClass;
-  }
-
-  _container: HTMLElement | null = null;
-  _imgUrlList: string[] = [];
-  _loadClass: string | null = null;
-
-  init() {
-    return Promise.all(this._getImageRequestList())
-      .then(() => {
-        if (this._container && this._loadClass) {
-          this._container.classList.add(this._loadClass);
-        }
-        return "ok";
-      })
-      .catch((err) => {
-        throw err;
-      });
-  }
-
-  _getImageRequestList() {
-    const data: Promise<string>[] = [];
-
-    this._imgUrlList.forEach((url) => {
-      const fetchImg = new Promise<string>((resolve, reject) => {
-        const img = document.createElement("img");
-
-        img.src = url;
-        img.onload = () => {
-          resolve("ok");
-        };
-        img.onerror = (err) => {
-          reject(err);
-        };
-      });
-
-      data.push(fetchImg);
-    });
-
-    return data;
-  }
-}
-
-const imageUrlList = ["tv.webp"];
-
 const loadingEl = ref<HTMLElement | null>(null);
+const { error } = useImageLoader([tvImg], loadingEl);
 
-onMounted(() => {
-  const preloadImage = new PreloadImage({
-    container: loadingEl.value,
-    imageUrlList,
-    loadClass: "onload-img",
-  });
-
-  preloadImage.init();
-});
+const bgStyle = computed(() => ({
+  backgroundImage: `url(${tvImg})`,
+}));
 </script>
 
 <template>
   <div ref="loadingEl" class="loading">
-    <div class="loading__wrapper">
+    <div class="loading__wrapper" :style="bgStyle">
       <span class="loading__text">Loading . . .</span>
     </div>
+    <div class="loading__error" v-if="error" role="alert">{{ error }}</div>
   </div>
 </template>
 
@@ -93,7 +38,6 @@ onMounted(() => {
     position: relative;
     width: 729px;
     height: 469px;
-    background-image: url("~/public/images/tv.webp");
     background-size: contain;
   }
 
@@ -110,15 +54,22 @@ onMounted(() => {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    /* по умолчанию анимация не запущена */
     animation: none;
   }
 
-  /* включаем анимацию только когда изображение загружено и класc onload-img добавлен */
   &.onload-img {
     &__text {
       animation: appearance 10s ease, loading-gradient 3s linear infinite;
     }
+  }
+
+  &__error {
+    margin-top: 12px;
+    color: #ff5252;
+    font-size: 14px;
+    text-align: center;
+    max-width: 90%;
+    word-break: break-word;
   }
 }
 
