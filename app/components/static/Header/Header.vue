@@ -1,50 +1,10 @@
 <script setup lang="ts">
-import type { IMovie } from "~/types";
+import { useHeaderSearch } from "~/composables/useHeaderSearch";
+import { useSearchClickOutside } from "~/utils/searchClickOutside";
 
-const searchQuery = ref("");
-const showResults = ref(false);
+const { searchQuery, showResults, data, error, onKeyup, onFocus, clearResults, execute } = useHeaderSearch();
 
-const fetcher = (): Promise<IMovie[]> =>
-  useFetchMovies<IMovie[]>(
-    `/movie?title=${encodeURIComponent(searchQuery.value)}`
-  );
-const { data, error, execute } = useAsyncFetch<IMovie[]>(fetcher);
-
-async function onKeyup(e: KeyboardEvent) {
-  if (e.key === "Enter" || e.key === " ") {
-    await execute();
-    showResults.value = !!(
-      data.value &&
-      data.value.length &&
-      searchQuery.value.trim()
-    );
-  } else if (searchQuery.value.trim() === "") {
-    data.value = null;
-    showResults.value = false;
-  }
-}
-
-function onFocus() {
-  showResults.value = !!(
-    data.value &&
-    data.value.length &&
-    searchQuery.value.trim()
-  );
-}
-
-function handleClickOutside(event: MouseEvent) {
-  const search = document.querySelector(".header__search");
-  if (search && !search.contains(event.target as Node)) {
-    showResults.value = false;
-  }
-}
-
-onMounted(() => {
-  document.addEventListener("click", handleClickOutside);
-});
-onBeforeUnmount(() => {
-  document.removeEventListener("click", handleClickOutside);
-});
+useSearchClickOutside(() => clearResults());
 </script>
 
 <template>

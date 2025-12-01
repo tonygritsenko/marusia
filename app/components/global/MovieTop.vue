@@ -10,9 +10,6 @@ defineProps<{
   genreClass?: string;
   durationClass?: string;
 }>();
-
-// These helpers are assumed to be globally available or imported in parent
-// If not, import them here as needed
 </script>
 
 <template>
